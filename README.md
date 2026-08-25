@@ -17,7 +17,7 @@
 
 | 路径 | 内容 |
 |------|------|
-| `00-module-plan.md` | 模块制进度（D1–D12） |
+| `00-module-plan.md` | 模块制进度（D1–D13） |
 | `demos/` | 每模块极简 TS Demo |
 | `interview/` | 面试口述（先讲 dsh，末尾可选一句 CC） |
 

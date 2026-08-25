@@ -15,15 +15,16 @@ DeepSeek Harness（`dsh`）的精髓不是又写了一遍 `while(true)`。它把
 4. **能力面可换提供方**：Service Definition / Provider / Consumer 三件套齐全。换 FS/subprocess 提供方，Bash、终端、LSP 跟着走。
 5. **每个 Agent 有自己的世界**：`agent.ctx` + `scope` 分层；工具菜单、提示词、Skill 可以按 agent 不同。
 6. **运行时可以改自己**：agent 能检查并挂载/卸载插件——这是平台，不只是一次会话脚本。
+7. **编排不开新循环**：Workflow / Ralph / Agent Teams 全是挂在子 Agent 能力面上的插件，不给 `agent-loop` 加模式。
 
-学完应能不看对照表，独立讲清：dsh 的 Agent 从哪里来、信怎么拼、圈怎么转、能力怎么换、关掉后怎么活。
+学完应能不看对照表，独立讲清：dsh 的 Agent 从哪里来、信怎么拼、圈怎么转、能力怎么换、关掉后怎么活、多 Agent 怎么编而不改内核。
 
-## 课程结构（两段，共 12 模块）
+## 课程结构（两段，共 13 模块）
 
 | 段 | 模块 | 作用 |
 |----|------|------|
 | **I 脊柱** | D1–D6 | 把 dsh 自己的运行时立起来 |
-| **II 精髓** | D7–D12 | 压缩插件、子 Agent 能力面、沙箱换提供方、Resume、Skill、自改+不变量 |
+| **II 精髓** | D7–D13 | 压缩、子 Agent、编排（Workflow/Ralph/Teams）、沙箱、Resume、Skill、自改 |
 
 对照 CC 的 M1–M10 会在口述里点一下，**不作为排课轴**。
 
@@ -39,12 +40,13 @@ DeepSeek Harness（`dsh`）的精髓不是又写了一遍 `while(true)`。它把
 | **D6** | Inbox：谁叫醒循环 | ⏳ | 把「下一轮 / 下一步 / 不唤醒」拆成原语 | `followup` / `steer` / `inject` |
 | **D7** | 压缩与重试是插件 | ⏳ | 证明新行为不进 `agent-loop` | `agent/pre-step`；`agent/request-error` |
 | **D8** | 子 Agent 是能力面 | ⏳ | 后端可换（进程内 / fork / 甚至别的产品） | `ctx.subagents`；独立 Session |
-| **D9** | 换提供方，产品跟着走 | ⏳ | seam 的最大红利：沙箱/FS/subprocess | `ctx.sandbox` / `ctx.fs` / `ctx.subprocess` |
-| **D10** | 从日志复活 | ⏳ | 事件源的工程闭环：persist + resume + 崩溃补 turn | `ctx.sessionPersistence` |
-| **D11** | Skill 是可选说明书 | ⏳ | 能力目录 ≠ 会话事件；按需加载进上下文 | `ctx.skills`；`skill` tool |
-| **D12** | 运行时改自己 | ⏳ | 签名设计：inspect + 挂载插件；不变量保契约 | `packages/extensions`；`ctx.invariants` |
+| **D9** | 编排：Workflow / Ralph / Teams | ⏳ | 多 Agent 策略是插件，不是新 loop | `ctx.workflowEngine`；`ralph`；`ctx.agentTeams` |
+| **D10** | 换提供方，产品跟着走 | ⏳ | seam 的最大红利：沙箱/FS/subprocess | `ctx.sandbox` / `ctx.fs` / `ctx.subprocess` |
+| **D11** | 从日志复活 | ⏳ | 事件源的工程闭环：persist + resume + 崩溃补 turn | `ctx.sessionPersistence` |
+| **D12** | Skill 是可选说明书 | ⏳ | 能力目录 ≠ 会话事件；按需加载进上下文 | `ctx.skills`；`skill` tool |
+| **D13** | 运行时改自己 | ⏳ | 签名设计：inspect + 挂载插件；不变量保契约 | `packages/extensions`；`ctx.invariants` |
 
-结课后若还想加餐：Workflow/Ralph、experimental Agent Teams、ACP 协议。默认不做，开口再说。
+结课后若还想加餐：ACP 协议。默认不做，开口再说。
 
 ## 每次学习固定流程
 
@@ -74,10 +76,11 @@ DeepSeek Harness（`dsh`）的精髓不是又写了一遍 `while(true)`。它把
 | D6 | `docs/subsystems/core.md`（Agent.handle / inbox） | `packages/core/agent-loop/src/agent.ts`（send） |
 | D7 | `docs/subsystems/compaction.md` | `packages/compaction/` |
 | D8 | `docs/subsystems/subagent.md` | `packages/subagent/` |
-| D9 | `docs/subsystems/sandbox.md`；`filesystem.md` | `packages/sandbox/`；`packages/fs/`；`packages/subprocess/` |
-| D10 | `docs/subsystems/persistence.md` | `packages/session/session-persistence*` |
-| D11 | `docs/subsystems/skills.md` | `packages/skill/` |
-| D12 | `docs/subsystems/extensions.md`；`invariants.md` | `packages/extensions/`；`packages/runtime-diagnostics/invariants/` |
+| D9 | `docs/subsystems/workflow.md`；`agent-team.md` | `packages/workflow/`；`packages/experimental/agent-team/` |
+| D10 | `docs/subsystems/sandbox.md`；`filesystem.md` | `packages/sandbox/`；`packages/fs/`；`packages/subprocess/` |
+| D11 | `docs/subsystems/persistence.md` | `packages/session/session-persistence*` |
+| D12 | `docs/subsystems/skills.md` | `packages/skill/` |
+| D13 | `docs/subsystems/extensions.md`；`invariants.md` | `packages/extensions/`；`packages/runtime-diagnostics/invariants/` |
 
 ---
 
@@ -143,11 +146,23 @@ compact 不在 loop 里开阶段。预防挂 `agent/pre-step`；API 仍超窗挂
 
 ### D8 子 Agent 是能力面
 
-子 Agent 有自己的 `SessionId`、自己的 log。提供方可以是进程内新 agent、fork 前缀、甚至 Claude Code / Codex / ACP 后端——主循环只认 `ctx.subagents` 接口。结果回灌仍是主会话上的 `tool/result`。后台收集走 `ctx.jobs`。Ralph/workflow 也是插件，不给 loop 开新模式。
+子 Agent 有自己的 `SessionId`、自己的 log。提供方可以是进程内新 agent、fork 前缀、甚至 Claude Code / Codex / ACP 后端——主循环只认 `ctx.subagents` 接口。结果回灌仍是主会话上的 `tool/result`。后台收集走 `ctx.jobs`。
+
+本课只立「一个子 Agent 怎么生、怎么隔离、怎么交卷」。多 Agent 怎么编，留给 D9。
 
 **Demo**：主 loop 点 delegate；子 session 独立跑完；主 log 只见一条摘要 result。
 
-### D9 换提供方，产品跟着走
+### D9 编排：Workflow / Ralph / Agent Teams
+
+三种编排，共用一条设计原则：**策略是插件，loop 不长新模式。**
+
+- **Workflow**：模型写一段 JS 脚本（`script` + JSON `meta`/`args`），引擎在 worker thread 里跑，脚本里 `agent()` 出去的孩子都记在父 Agent 名下。`ctx.workflowEngine` 每个 context 只有一个引擎实现，不是命名提供方注册表。脚本跑前校验 meta，失败要响，不会先 eval 再取身份。
+- **Ralph**：固定前台工作流，不是模型写脚本。把一个不可变 `objective` 依次交给多个 **全新** 子 agent；共享工作区是长期记忆，不把父对话当种子。每轮结构化交接 `continue | complete | blocked`。它证明：专用编排策略 = `workflowEngine` + `subagents` 上的普通工具插件。
+- **Agent Teams**（实验域）：在 Lead Session 的日志上 fold 出花名册、任务 DAG、邮箱。队友仍是可继续的子 Agent；消息 `quiet` / `wakeup` 对上 D6 的 inject / followup。任务带 `blockedBy` 和 `writeScopes`，状态从 log 派生，不另造一套真相。
+
+**Demo**：假 workflow 脚本串行起两个子 agent 再 `return` 汇总；Ralph 三轮 fresh child，只把最后一份交接交回父级；Team 往队友 inbox 投一封 wakeup 信，从 lead log fold 出未投递邮箱。
+
+### D10 换提供方，产品跟着走
 
 文件系统、子进程、沙箱是三个 seam。本地 Bash 经 `ctx.subprocess` 再经 `ctx.sandbox` 包一层 argv。把 FS+subprocess 指到远程沙箱，Bash / PTY / LSP 一起搬家，不必给每个工具写远程版。
 
@@ -155,19 +170,19 @@ compact 不在 loop 里开阶段。预防挂 `agent/pre-step`；API 仍超窗挂
 
 **Demo**：假 Bash 不直接 spawn，而是 `sandbox.wrap(argv)` 再交给 subprocess；换一个 remote provider，同一 Bash 工具输出「在远端跑」。
 
-### D10 从日志复活
+### D11 从日志复活
 
 内存 log 是真相；持久化是另一条 seam（jsonl / sqlite），**没有第二套事件类型**。`session/event` 不阻塞 loop，后台分批写；`session/flush` 是观测屏障。崩溃若停在打开的 turn，恢复时补合成 `turn/end { interrupted }`，不截断已经落下的超长工具输出。`resume()` 从同一 id 重建历史再发布 agent。Header（cwd、谱系）走元数据，不进 `deriveMessages()`。
 
 **Demo**：跑完两 step 后把事件数组当「磁盘」；新 loop `resume` 出来，派生信与原来一致。
 
-### D11 Skill 是可选说明书
+### D12 Skill 是可选说明书
 
 Skill **不是** session 事件。`ctx.skills` 合并多层提供方目录；模型用 `skill` 工具按需加载正文，加载后的内容再作为模型可见输入进入 log。目录按 scope 分层，和工具菜单同一套隔离。
 
 **Demo**：catalog 里有 `debug-auth`；模型点 skill 后，下一封信多出说明书，且这条进了 log。
 
-### D12 运行时改自己
+### D13 运行时改自己
 
 agent 可以 inspect 当前 Cordis 树，并挂载/卸载自己写的插件——loop 不用重启。这把「一切皆插件」从开机配置推进到 **会话中的演化**。配套的是 `ctx.invariants`：每个包登记自己的运行时断言，查的是事件流和数据关系，不是「服务在不在」。配置错误 fail loud，不默默跳过。
 
