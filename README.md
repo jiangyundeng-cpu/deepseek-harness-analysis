@@ -23,7 +23,7 @@
 
 ## 当前进度
 
-- D1–D2 已完成；下一课 D3 瘦循环
+- D1–D4 已完成；下一课 D5 被守卫的工具链
 - 远程：https://github.com/jiangyundeng-cpu/deepseek-harness-analysis
 
 日常更新：
