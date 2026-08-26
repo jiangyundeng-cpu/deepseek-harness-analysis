@@ -36,7 +36,7 @@ DeepSeek Harness（`dsh`）的精髓不是又写了一遍 `while(true)`。它把
 | **D2** | 日志即世界 | ✅ 已完成 | 最硬不变量：Model-visible ⟺ logged | `SessionEvent`；`deriveMessages` |
 | **D3** | 瘦循环 | ✅ 已完成 | 驱动器只转圈，失败关 turn 不关 loop | `ReactLoopAgent` |
 | **D4** | 提示词是拼出来的 | ✅ 已完成 | 信的抬头由插件贡献，且按 agent 作用域 | `ctx.systemPrompt`；`agent.ctx` |
-| **D5** | 被守卫的工具链 | ⏳ | 闸门是瀑布链；并行默认 fail-closed | `tools/*`；`tool-calls.ts` |
+| **D5** | 被守卫的工具链 | ✅ 已完成 | 闸门是瀑布链；并行默认 fail-closed | `tools/*`；`tool-calls.ts` |
 | **D6** | Inbox：谁叫醒循环 | ⏳ | 把「下一轮 / 下一步 / 不唤醒」拆成原语 | `followup` / `steer` / `inject` |
 | **D7** | 压缩与重试是插件 | ⏳ | 证明新行为不进 `agent-loop` | `agent/pre-step`；`agent/request-error` |
 | **D8** | 子 Agent 是能力面 | ⏳ | 后端可换（进程内 / fork / 甚至别的产品） | `ctx.subagents`；独立 Session |
