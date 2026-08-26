@@ -23,7 +23,7 @@
 
 ## 当前进度
 
-- D1–D5 已完成；下一课 D6 Inbox：谁叫醒循环
+- D1–D6 已完成；下一课 D7 压缩与重试是插件
 - 远程：https://github.com/jiangyundeng-cpu/deepseek-harness-analysis
 
 日常更新：
