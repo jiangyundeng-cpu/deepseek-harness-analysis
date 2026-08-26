@@ -193,6 +193,7 @@ agent 可以 inspect 当前 Cordis 树，并挂载/卸载自己写的插件—�
 ## 文件约定
 
 - `00-module-plan.md` — 本计划
+- `01-d1-d6-spine-review.md` — 脊柱段回顾与 CC 对照
 - `interview/dX-*.md` — 口述
 - `demos/dX_*.ts` — Demo
 

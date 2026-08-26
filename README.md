@@ -18,6 +18,7 @@
 | 路径 | 内容 |
 |------|------|
 | `00-module-plan.md` | 模块制进度（D1–D13） |
+| `01-d1-d6-spine-review.md` | 脊柱段回顾（D1–D6）与 CC 对照 |
 | `demos/` | 每模块极简 TS Demo |
 | `interview/` | 面试口述（先讲 dsh，末尾可选一句 CC） |
 
