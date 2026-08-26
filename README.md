@@ -23,7 +23,7 @@
 
 ## 当前进度
 
-- D1 插件宇宙已完成；下一课 D2 日志即世界
+- D1–D2 已完成；下一课 D3 瘦循环
 - 远程：https://github.com/jiangyundeng-cpu/deepseek-harness-analysis
 
 日常更新：

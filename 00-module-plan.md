@@ -33,7 +33,7 @@ DeepSeek Harness（`dsh`）的精髓不是又写了一遍 `while(true)`。它把
 | 模块 | 主题 | 状态 | 为什么算精髓 | 核心锚点 |
 |------|------|------|--------------|----------|
 | **D1** | 插件宇宙 | ✅ 已完成 | 世界观：一切皆插件、可逆、组合开机 | Cordis primer；profile / bundle |
-| **D2** | 日志即世界 | ⏳ | 最硬不变量：Model-visible ⟺ logged | `SessionEvent`；`deriveMessages` |
+| **D2** | 日志即世界 | ✅ 已完成 | 最硬不变量：Model-visible ⟺ logged | `SessionEvent`；`deriveMessages` |
 | **D3** | 瘦循环 | ⏳ | 驱动器只转圈，失败关 turn 不关 loop | `ReactLoopAgent` |
 | **D4** | 提示词是拼出来的 | ⏳ | 信的抬头由插件贡献，且按 agent 作用域 | `ctx.systemPrompt`；`agent.ctx` |
 | **D5** | 被守卫的工具链 | ⏳ | 闸门是瀑布链；并行默认 fail-closed | `tools/*`；`tool-calls.ts` |
