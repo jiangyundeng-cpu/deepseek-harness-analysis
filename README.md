@@ -23,7 +23,7 @@
 
 ## 当前进度
 
-- 课程已按「dsh 精髓课」重排；未开课
+- D1 插件宇宙已完成；下一课 D2 日志即世界
 - 远程：https://github.com/jiangyundeng-cpu/deepseek-harness-analysis
 
 日常更新：
