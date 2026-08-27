@@ -24,7 +24,7 @@
 
 ## 当前进度
 
-- D1–D6 已完成；下一课 D7 压缩与重试是插件
+- D1–D7 已完成；下一课 D8 子 Agent 是能力面
 - 远程：https://github.com/jiangyundeng-cpu/deepseek-harness-analysis
 
 日常更新：
