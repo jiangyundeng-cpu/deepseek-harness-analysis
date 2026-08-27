@@ -24,7 +24,7 @@
 
 ## 当前进度
 
-- D1–D11 已完成；下一课 D12 Skill 是可选说明书
+- D1–D12 已完成；下一课 D13 运行时改自己
 - 远程：https://github.com/jiangyundeng-cpu/deepseek-harness-analysis
 
 日常更新：
