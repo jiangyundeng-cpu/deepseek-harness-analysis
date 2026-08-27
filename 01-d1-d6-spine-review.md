@@ -68,4 +68,4 @@
 | D5 | `demos/d5_guarded_tools.ts` | `interview/d5-guarded-tools.md` |
 | D6 | `demos/d6_inbox.ts` | `interview/d6-inbox.md` |
 
-下一课：**D7 压缩与重试是插件**。开始证明 compact / retry 也不必改循环。
+后半段见 `02-d7-d13-review.md`；全程见 `03-d1-d13-review.md`。
