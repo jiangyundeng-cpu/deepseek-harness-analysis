@@ -24,7 +24,7 @@
 
 ## 当前进度
 
-- D1–D8 已完成；下一课 D9 编排：Workflow / Ralph / Teams
+- D1–D9 已完成；下一课 D10 换提供方，产品跟着走
 - 远程：https://github.com/jiangyundeng-cpu/deepseek-harness-analysis
 
 日常更新：
