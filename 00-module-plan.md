@@ -42,7 +42,7 @@ DeepSeek Harness（`dsh`）的精髓不是又写了一遍 `while(true)`。它把
 | **D8** | 子 Agent 是能力面 | ✅ 已完成 | 后端可换（进程内 / fork / 甚至别的产品） | `ctx.subagents`；独立 Session |
 | **D9** | 编排：Workflow / Ralph / Teams | ✅ 已完成 | 多 Agent 策略是插件，不是新 loop | `ctx.workflowEngine`；`ralph`；`ctx.agentTeams` |
 | **D10** | 换提供方，产品跟着走 | ✅ 已完成 | seam 的最大红利：沙箱/FS/subprocess | `ctx.sandbox` / `ctx.fs` / `ctx.subprocess` |
-| **D11** | 从日志复活 | ⏳ | 事件源的工程闭环：persist + resume + 崩溃补 turn | `ctx.sessionPersistence` |
+| **D11** | 从日志复活 | ✅ 已完成 | 事件源的工程闭环：persist + resume + 崩溃补 turn | `ctx.sessionPersistence` |
 | **D12** | Skill 是可选说明书 | ⏳ | 能力目录 ≠ 会话事件；按需加载进上下文 | `ctx.skills`；`skill` tool |
 | **D13** | 运行时改自己 | ⏳ | 签名设计：inspect + 挂载插件；不变量保契约 | `packages/extensions`；`ctx.invariants` |
 
