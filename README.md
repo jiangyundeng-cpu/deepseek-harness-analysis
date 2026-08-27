@@ -24,7 +24,7 @@
 
 ## 当前进度
 
-- D1–D12 已完成；下一课 D13 运行时改自己
+- D1–D13 已完成（精髓课结业）；可选加餐 ACP
 - 远程：https://github.com/jiangyundeng-cpu/deepseek-harness-analysis
 
 日常更新：
